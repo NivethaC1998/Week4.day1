@@ -1,0 +1,53 @@
+package week4.day1;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class LeafGroundTable {
+	public static void main(String[] args) {
+		//To setup driver
+		WebDriverManager.chromedriver().setup();	
+		ChromeDriver driver=new ChromeDriver();
+		//To Load URL
+		driver.get("http://www.leafground.com/pages/table.html");
+		//To Maximize the window
+		driver.manage().window().maximize();
+
+
+		//To get no of rows and no of columns of table
+		WebElement table = driver.findElement(By.xpath("//section[@class='innerblock']/div/table"));
+		List<WebElement> rows = table.findElements(By.tagName("tr"));
+		int Number_of_rows = rows.size()-1;
+		System.out.println("Number of rows:" + Number_of_rows);
+		int columnsize = 0;
+		for (int i=0; i<rows.size();i++)
+		{
+			List<WebElement> Columns = rows.get(i).findElements(By.tagName("td"));
+			columnsize=Columns.size();
+		}
+		System.out.println("Number of Columns: " + columnsize);
+
+
+		//To get the progress value of 'learn to interact with elements
+		for (int i=0; i<rows.size();i++)
+		{
+			List<WebElement> Columns = rows.get(i).findElements(By.tagName("td"));
+			for (int j=0; j<Columns.size();j++)
+			{
+				if(Columns.get(j).getText().equals("Learn to interact with Elements"))
+					System.out.println(Columns.get(j).getText()+":" + Columns.get(j+1).getText());
+				//To click the vital task for least progress
+				if(Columns.get(j).getText().equals("20%"))
+					Columns.get(j).findElement(By.xpath("(//input[@name='vital'])[5]")).click();
+			}
+		}
+
+
+
+
+	}}

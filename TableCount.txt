@@ -1,0 +1,47 @@
+package week4.day1;
+
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class TableCount {
+public static void main(String[] args) {
+	//Browser setup
+			WebDriverManager.chromedriver().setup();
+			ChromeDriver driver = new ChromeDriver();
+			//Load URL
+			driver.get("https://html.com/tags/table/");
+			//To Maximize the window
+			driver.manage().window().maximize();
+			
+			WebElement table = driver.findElement(By.xpath("//table[@class='attributes-list']"));
+			List<WebElement> rows = table.findElements(By.tagName("tr"));
+			System.out.println("Attributes of Create An HTML Table");
+			System.out.println(rows.size());
+			int columnsize = 0;
+			int columnsize1 = 0;
+
+			for (int i=0; i<rows.size();i++)
+			{
+				List<WebElement> columns = rows.get(i).findElements(By.tagName("td"));
+				columnsize=columns.size();
+				}
+			System.out.println(columnsize);
+			
+			WebElement table1 = driver.findElement(By.xpath("//div[@class='render']/table"));
+			List<WebElement> rows1 = table1.findElements(By.xpath("//div[@class='render']/table/tbody/tr"));
+			System.out.println("JavaScript Libraries table count");
+			System.out.println(rows1.size());
+			for (int i=0; i<rows1.size();i++)
+			{
+				List<WebElement> columns1 = rows1.get(i).findElements(By.tagName("td"));
+				columnsize1=columns1.size();
+				}
+			System.out.println(columnsize1);
+}
+}
